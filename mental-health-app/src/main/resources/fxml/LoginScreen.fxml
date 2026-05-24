@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mentalhealth.controller.LoginController"
+            prefWidth="1200" prefHeight="800"
+            stylesheets="@../css/styles.css">
+
+    <!-- LEFT BRAND PANEL -->
+    <left>
+        <VBox prefWidth="350" styleClass="login-left">
+            <padding>
+                <Insets top="40" right="35" bottom="40" left="35"/>
+            </padding>
+
+            <Label text="  Mental Health" styleClass="login-left-title"/>
+            <Label text="   AI-powered mental wellness companion"
+                   styleClass="login-left-subtitle"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <ImageView fx:id="sidebarImage"
+                    fitHeight="600"
+                    preserveRatio="true"
+                    TranslateX="30"
+                    smooth="true"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Label text="Track • Analyze • Improve"
+                   styleClass="login-left-footnote"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER LOGIN CARD -->
+    <center>
+        <VBox alignment="CENTER" spacing="18" styleClass="login-center-wrap">
+
+            <!-- LOGO ABOVE CARD -->
+            <ImageView fx:id="logoImageView"
+                fitWidth="600"
+                preserveRatio="true"
+                smooth="true"/>
+
+            <!-- LOGIN CARD -->
+            <VBox spacing="14" maxWidth="440" styleClass="card login-card">
+
+                <Label text="Welcome Back" styleClass="login-title"/>
+                <Label text="Sign in to continue" styleClass="login-subtitle"/>
+
+                <Label fx:id="errorLabel"
+                    visible="false"
+                    styleClass="error-text"/>
+
+                <VBox spacing="6">
+                    <Label text="Username" styleClass="form-label"/>
+                    <TextField fx:id="usernameField"
+                            promptText="Enter your username"
+                            prefHeight="42"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Password" styleClass="form-label"/>
+                    <StackPane>
+                        <PasswordField fx:id="passwordField"
+                                    promptText="Enter your password"
+                                    prefHeight="42"
+                                    onAction="#handleLogin"/>
+                        <TextField fx:id="passwordTextField"
+                                promptText="Enter your password"
+                                prefHeight="42"
+                                visible="false"
+                                onAction="#handleLogin"/>
+                        <Button fx:id="togglePasswordBtn"
+                                text="👁"
+                                onAction="#handleTogglePassword"
+                                StackPane.alignment="CENTER_RIGHT"
+                                style="-fx-background-color: transparent; -fx-font-size: 16px; -fx-cursor: hand; -fx-padding: 0 10 0 0;"/>
+                    </StackPane>
+                </VBox>
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <ProgressIndicator fx:id="loadingIndicator"
+                                    visible="false"
+                                    prefWidth="22" prefHeight="22"/>
+                    <Label text="Signing in..."
+                        styleClass="muted-text"
+                        visible="false"
+                        managed="false"/>
+                </HBox>
+
+                <Button text="Sign In"
+                        onAction="#handleLogin"
+                        prefWidth="Infinity"
+                        prefHeight="46"
+                        styleClass="primary-button"/>
+
+                <Hyperlink text="Forgot Password?"
+                        onAction="#handleForgotPassword"
+                        styleClass="login-link"
+                        style="-fx-font-size: 12px; -fx-text-alignment: center;"/>
+
+                <HBox alignment="CENTER" spacing="6">
+                    <Label text="Don't have an account?"
+                        styleClass="muted-text"/>
+                    <Hyperlink text="Sign Up"
+                            onAction="#handleRegisterLink"
+                            styleClass="login-link"/>
+                </HBox>
+
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.mentalhealth.controller.MoodTrackerController" 
+            prefWidth="1200" 
+            prefHeight="900"
+           stylesheets="@../css/styles.css">
+
+    <!-- SIDEBAR -->
+        <left>
+        <VBox prefWidth="250" spacing="5" style="-fx-background-color: #1565C0;">
+            <padding>
+            <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <Label text="Mental Health"
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region prefHeight="30"/>
+
+            <Button text="📊  Dashboard"
+                onAction="#handleDashboard"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📝  New Analysis"
+                onAction="#handleNewAnalysis"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📜  History"
+                onAction="#handleHistory"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="😊  Mood Tracker"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📋  Recommendations"
+                onAction="#handleRecommendations"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="👤  Profile"
+                onAction="#handleProfile"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="ℹ️  About Us"
+                onAction="#handleAbout"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="🚪  Logout"
+                onAction="#handleLogout"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+        </VBox>
+        </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" 
+                    fitToHeight="true"
+                    styleClass="scroll-pane"
+                    style="-fx-background-color: #f8fafc;">
+            <VBox spacing="25">
+                <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+
+                <!-- HEADER -->
+                <VBox spacing="5">
+                    <Label text="Your Weekly Story" styleClass="label-title"/>
+                    <Label text="A deep dive into your emotional patterns and progress." styleClass="label-subtitle"/>
+                </VBox>
+
+                <!-- ERROR/EMPTY STATE LABEL -->
+                <Label fx:id="errorLabel" 
+                       visible="false" 
+                       managed="false"
+                       wrapText="true"
+                       style="-fx-text-fill: #64748b; -fx-font-size: 16px; -fx-padding: 40px; -fx-alignment: center;"/>
+
+                <!-- INSIGHT CARDS (Best/Worst/Frequent) -->
+                <HBox spacing="15">
+                    <!-- THE BRIGHT SPOT -->
+                    <VBox HBox.hgrow="ALWAYS" 
+                          spacing="10" 
+                          styleClass="card, card-success, card-shadow"
+                          style="-fx-padding: 20;">
+                        <Label text="🌟 THE BRIGHT SPOT" 
+                               styleClass="label-card-title"
+                               style="-fx-text-fill: #065f46;"/>
+                        <Label fx:id="bestDayLabel" 
+                               text="Loading..." 
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #047857;"/>
+                        <Label fx:id="bestDayReason" 
+                               text="---" 
+                               wrapText="true" 
+                               style="-fx-font-size: 12px; -fx-text-fill: #065f46; -fx-font-style: italic;"/>
+                    </VBox>
+
+                    <!-- THE CHALLENGE -->
+                      <VBox HBox.hgrow="ALWAYS" 
+                          spacing="10" 
+                          styleClass="card, card-danger, card-shadow"
+                          style="-fx-padding: 20;">
+                        <Label text="☁️ THE CHALLENGE" 
+                               styleClass="label-card-title"
+                               style="-fx-text-fill: #991b1b;"/>
+                        <Label fx:id="worstDayLabel" 
+                               text="Loading..." 
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #b91c1c;"/>
+                        <Label fx:id="worstDayReason" 
+                               text="---" 
+                               wrapText="true" 
+                               style="-fx-font-size: 12px; -fx-text-fill: #991b1b; -fx-font-style: italic;"/>
+                    </VBox>
+
+                    <!-- MOST FREQUENT -->
+                      <VBox HBox.hgrow="ALWAYS" 
+                          spacing="10" 
+                          styleClass="card, card-info, card-shadow"
+                          style="-fx-padding: 20;">
+                        <Label text="🔁 MOST FREQUENT" 
+                               styleClass="label-card-title"
+                               style="-fx-text-fill: #1e40af;"/>
+                        <Label fx:id="freqMoodLabel" 
+                               text="Loading..." 
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1d4ed8;"/>
+                        <Label fx:id="freqMoodDesc" 
+                               text="This was your baseline." 
+                               wrapText="true"
+                               style="-fx-font-size: 12px; -fx-text-fill: #1e40af;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- ANALYTICS SECTION -->
+                <HBox spacing="20">
+                    <!-- MOOD CHART WITH CALENDAR FILTER -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="15" styleClass="card, card-shadow">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="Your Mood Journey" styleClass="label-section" style="-fx-font-size: 18px;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label text="From:" style="-fx-text-fill: #64748b; -fx-font-size: 12px;"/>
+                            <DatePicker fx:id="startDatePicker" promptText="Start date" style="-fx-pref-width: 130;"/>
+                            <Label text="To:" style="-fx-text-fill: #64748b; -fx-font-size: 12px;"/>
+                            <DatePicker fx:id="endDatePicker" promptText="End date" style="-fx-pref-width: 130;"/>
+                            <Button text="Clear" fx:id="clearFilterBtn"
+                                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #64748b; -fx-font-size: 11px; -fx-padding: 5 10; -fx-background-radius: 8;"/>
+                            <Button fx:id="infoBtn" text="ⓘ Graph Key"
+                                    onAction="#handleShowGraphKey"
+                                    style="-fx-background-color: #e0e7ff; -fx-text-fill: #4338ca; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 5 10; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                        </HBox>
+                        <LineChart fx:id="moodLineChart" prefHeight="280" legendVisible="false" animated="true">
+                            <xAxis>
+                                <CategoryAxis fx:id="dateAxis" label="Date"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="moodAxis" label="" autoRanging="false" lowerBound="0" upperBound="120" tickUnit="15"/>
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+                    
+                    <!-- WEATHER & TREND SIDEBAR -->
+                    <VBox prefWidth="320" spacing="20">
+                        <!-- EMOTIONAL WEATHER -->
+                        <VBox spacing="12" styleClass="card, card-shadow">
+                            <Label text="EMOTIONAL WEATHER" 
+                                   styleClass="label-card-title"
+                                   style="-fx-text-fill: #64748b;"/>
+                            <Label fx:id="weatherLabel" 
+                                   text="Calm Seas" 
+                                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+                            <Label fx:id="weatherDesc" 
+                                   text="Your moods were consistent and predictable." 
+                                   wrapText="true" 
+                                    maxWidth="280"
+                                    minHeight="40" 
+                                    styleClass="label-muted"
+                                    style="-fx-wrap-text: true;"/>
+                            <Separator/>
+                            <Label fx:id="stabilityLabel" 
+                                   text="Stability: 0%" 
+                                   style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                            <ProgressBar fx:id="stabilityBar" 
+                                        progress="0.0" 
+                                        prefWidth="Infinity"
+                                        prefHeight="10"/>
+                        </VBox>
+
+                        <!-- WEEKLY TREND -->
+                        <VBox spacing="10" styleClass="card, card-shadow">
+                            <Label text="WEEKLY TREND" 
+                                   styleClass="label-card-title"
+                                   style="-fx-text-fill: #64748b;"/>
+                            <Label fx:id="trendLabel" 
+                                   text="Neutral" 
+                                   style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                            <Label fx:id="avgScoreLabel" 
+                                   text="Average Score: 0" 
+                                   styleClass="label-muted"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- ENTRY HISTORY -->
+                <VBox spacing="15">
+                    <Label text="Entry History" styleClass="label-section"/>
+                    
+                    <!-- Top 3 entries (always visible) -->
+                    <VBox fx:id="topMoodHistoryContainer" spacing="12"/>
+                    
+                    <!-- Additional entries (collapsible) -->
+                    <VBox fx:id="moreMoodHistoryContainer" 
+                          spacing="12" 
+                          visible="false" 
+                          managed="false"/>
+                    
+                    <!-- Show More Button -->
+                    <Button fx:id="showMoreBtn" 
+                            text="Show More" 
+                            visible="false"
+                            styleClass="button-secondary"
+                            style="-fx-background-color: transparent; -fx-text-fill: #3b82f6; -fx-border-width: 0;"/>
+                </VBox>
+
+                <!-- AI REPORT SECTION  -->
+                <VBox fx:id="reportSectionContainer" 
+                      spacing="20" 
+                      style="-fx-background-color: #f1f5f9; -fx-padding: 35; -fx-background-radius: 20; -fx-border-color: #cbd5e1; -fx-border-width: 1px;">
+                    
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="✨ AI Reflection" 
+                               style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #4338ca;"/>
+                        <ProgressIndicator fx:id="loadingSpinner" 
+                                          prefWidth="25" 
+                                          prefHeight="25" 
+                                          visible="false"/>
+                    </HBox>
+                    
+                    <!-- TextArea with no fixed height constraints -->
+                    <TextArea fx:id="reportTextArea"
+                              wrapText="true"
+                              editable="false"
+                              promptText="Click 'Analyze My Week' to generate personalized insights from AI..."
+                              styleClass="text-area"
+                              style="-fx-control-inner-background: white; -fx-font-size: 15px; -fx-line-spacing: 0.3em;">
+                        <!-- VBox will handle the growth -->
+                        <VBox.vgrow>ALWAYS</VBox.vgrow>
+                    </TextArea>
+                    
+                    <Button fx:id="generateReportBtn" 
+                            text="Analyze My Week" 
+                            onAction="#handleGenerateReport" 
+                            prefHeight="50" 
+                            prefWidth="Infinity" 
+                            styleClass="button-primary"/>
+                    
+                    <Label fx:id="statusLabel" 
+                           styleClass="label-muted"
+                           wrapText="true"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

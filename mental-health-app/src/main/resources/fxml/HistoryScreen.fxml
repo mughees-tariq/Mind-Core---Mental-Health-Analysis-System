@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.mentalhealth.controller.HistoryController"
+            prefWidth="1300" prefHeight="850"
+            stylesheets="@../css/styles.css">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox prefWidth="250" spacing="5" style="-fx-background-color: #1565C0;">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <Label text="Mental Health"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region prefHeight="30"/>
+
+            <Button text="📊  Dashboard"
+                    onAction="#handleDashboard"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📝  New Analysis"
+                    onAction="#handleNewAnalysis"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📜  History"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="😊  Mood Tracker"
+                    onAction="#handleMoodTracker"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📋  Recommendations"
+                    onAction="#handleRecommendations"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="👤  Profile"
+                    onAction="#handleProfile"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="ℹ️  About Us"
+                    onAction="#handleAbout"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="🚪  Logout"
+                    onAction="#handleLogout"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox styleClass="content-area" spacing="20">
+            <padding>
+                <Insets top="25" right="30" bottom="25" left="30"/>
+            </padding>
+
+            <!-- HEADER WITH STATS -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <VBox spacing="5">
+                    <Label text="📜 Analysis History" styleClass="label-title"/>
+                    <Label text="Review, filter, and manage your complete mental health journey" styleClass="label-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                
+                <!-- Quick Stats -->
+                <HBox spacing="25" style="-fx-background-color: white; -fx-padding: 12 20; -fx-background-radius: 12;">
+                    <VBox alignment="CENTER" spacing="2">
+                        <Label fx:id="totalEntriesLabel" text="0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1E88E5;"/>
+                        <Label text="Total" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="2">
+                        <Label fx:id="activeDaysLabel" text="0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #10b981;"/>
+                        <Label text="Active Days" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="2">
+                        <Label fx:id="avgConfLabel" text="0%" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f59e0b;"/>
+                        <Label text="Avg Confidence" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+
+            <!-- FILTER BAR -->
+            <VBox styleClass="card" spacing="15">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="🔍 Filter Results" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="toggleFilterBtn" text="▼ Hide Filters" 
+                            style="-fx-background-color: transparent; -fx-text-fill: #3b82f6; -fx-cursor: hand;"/>
+                </HBox>
+                
+                <VBox fx:id="filterPanel" spacing="15">
+                    <Separator/>
+                    
+                    <!-- Row 1: Date Range -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Date:" prefWidth="60"/>
+                        <DatePicker fx:id="startDatePicker" promptText="Start Date" prefWidth="150"/>
+                        <Label text="to"/>
+                        <DatePicker fx:id="endDatePicker" promptText="End Date" prefWidth="150"/>
+                        <Button fx:id="clearDatesBtn" text="Clear" styleClass="button-secondary" style="-fx-padding: 8 15;"/>
+                    </HBox>
+                    
+                    <!-- Row 2: Mood -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Mood:" prefWidth="60"/>
+                        <HBox fx:id="moodFilterContainer" spacing="8" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    
+                    <!-- Row 3: Severity -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Severity:" prefWidth="60"/>
+                        <HBox spacing="20">
+                            <CheckBox fx:id="lowSeverityCheck" text="Low"/>
+                            <CheckBox fx:id="moderateSeverityCheck" text="Moderate"/>
+                            <CheckBox fx:id="highSeverityCheck" text="High"/>
+                            <CheckBox fx:id="criticalSeverityCheck" text="Critical"/>
+                        </HBox>
+                    </HBox>
+                    
+                    <!-- Row 4: Confidence -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Confidence:" prefWidth="60"/>
+                        <Label text="Min:"/>
+                        <Slider fx:id="minConfidenceSlider" min="0" max="100" value="0" 
+                                showTickLabels="false" prefWidth="150"/>
+                        <Label fx:id="minConfValue" text="0%" prefWidth="50"/>
+                        
+                        <Label text="Max:"/>
+                        <Slider fx:id="maxConfidenceSlider" min="0" max="100" value="100" 
+                                showTickLabels="false" prefWidth="150"/>
+                        <Label fx:id="maxConfValue" text="100%" prefWidth="50"/>
+                    </HBox>
+                    
+                    <!-- Row 5: Search -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Search:" prefWidth="60"/>
+                        <TextField fx:id="searchField" promptText="Search in your entries..." HBox.hgrow="ALWAYS"/>
+                        <CheckBox fx:id="starredOnlyCheck" text="Starred only"/>
+                    </HBox>
+                    
+                    <!-- Row 6: Sort -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="Sort by:" prefWidth="60"/>
+                        <ComboBox fx:id="sortCombo" prefWidth="200">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Newest first"/>
+                                    <String fx:value="Oldest first"/>
+                                    <String fx:value="Highest confidence"/>
+                                    <String fx:value="Mood (A-Z)"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        
+                        <Region HBox.hgrow="ALWAYS"/>
+                        
+                        <Button fx:id="applyFilterBtn" text="Apply Filters" styleClass="button-primary" 
+                                style="-fx-padding: 8 25;"/>
+                        <Button fx:id="resetFilterBtn" text="Reset" styleClass="button-secondary"
+                                style="-fx-padding: 8 20;"/>
+                    </HBox>
+                    
+                    <!-- Active Tags Display -->
+                    <FlowPane fx:id="activeTagsPane" hgap="5" vgap="5" visible="false" managed="false"/>
+                </VBox>
+            </VBox>
+
+            <!-- BULK ACTION BAR -->
+            <HBox fx:id="bulkActionBar" spacing="10" alignment="CENTER_LEFT" visible="false" managed="false"
+                  style="-fx-background-color: #e0f2fe; -fx-padding: 12 20; -fx-background-radius: 10;">
+                <Label fx:id="selectedCountLabel" text="0 items selected" style="-fx-font-weight: bold; -fx-text-fill: #0369a1;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Star Selected" onAction="#handleBulkStar" styleClass="button-secondary"/>
+                <Button text="Export Selected" onAction="#handleBulkExport" styleClass="button-secondary"/>
+                <Button text="Delete Selected" onAction="#handleBulkDelete" styleClass="button-danger"/>
+                <Button text="Cancel" onAction="#handleBulkCancel" styleClass="button-secondary" style="-fx-background-color: #f1f5f9;"/>
+            </HBox>
+
+            <!-- VIEW TOGGLE -->
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <ToggleButton fx:id="listViewBtn" text="📋 List" selected="true" 
+                             style="-fx-background-radius: 8 0 0 8; -fx-padding: 8 20;"/>
+                <ToggleButton fx:id="timelineViewBtn" text="📅 Timeline" 
+                             style="-fx-background-radius: 0 8 8 0; -fx-padding: 8 20;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="exportBtn" text="📥 Export" onAction="#handleExport" styleClass="button-secondary"/>
+            </HBox>
+
+            <!-- LIST VIEW -->
+            <VBox fx:id="listView" spacing="15" VBox.vgrow="ALWAYS">
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background: transparent;">
+                    <VBox fx:id="entriesContainer" spacing="12" style="-fx-padding: 5 0 5 0;"/>
+                </ScrollPane>
+                
+                <!-- Loading Indicator -->
+                <VBox fx:id="loadingIndicator" alignment="CENTER" spacing="10" visible="false" managed="false">
+                    <ProgressIndicator prefWidth="40" prefHeight="40"/>
+                    <Label text="Loading your history..." style="-fx-text-fill: #64748b;"/>
+                </VBox>
+                
+                <!-- Empty State -->
+                <VBox fx:id="emptyState" alignment="CENTER" spacing="15" visible="false" managed="false"
+                      style="-fx-padding: 60 0;">
+                    <Label text="📭" style="-fx-font-size: 64px;"/>
+                    <Label text="No entries found" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <Label text="Try adjusting your filters or start a new analysis" style="-fx-text-fill: #64748b;"/>
+                    <Button text="📝 New Analysis" onAction="#handleNewAnalysis" styleClass="button-primary" style="-fx-padding: 12 30;"/>
+                </VBox>
+                
+                <!-- Load More Button -->
+                <Button fx:id="loadMoreBtn" text="Load More" visible="false" 
+                        onAction="#handleLoadMore" styleClass="button-secondary" style="-fx-padding: 10;"/>
+            </VBox>
+
+            <!-- TIMELINE VIEW -->
+            <VBox fx:id="timelineView" spacing="15" visible="false" managed="false">
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="timelineContainer" spacing="8" style="-fx-padding: 10;"/>
+                </ScrollPane>
+            </VBox>
+
+            <!-- COMPARE VIEW -->
+            <VBox fx:id="compareView" spacing="15" visible="false" managed="false">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Label text="Comparing:" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="compareCountLabel" text="0 entries"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Clear Comparison" onAction="#handleClearCompare" styleClass="button-secondary"/>
+                </HBox>
+                <Separator/>
+                <HBox fx:id="compareContainer" spacing="20" alignment="CENTER"/>
+            </VBox>
+
+            <!-- TAG MANAGEMENT DIALOG -->
+            <VBox fx:id="tagDialog" styleClass="card" spacing="15" visible="false" managed="false"
+                  style="-fx-max-width: 400; -fx-background-color: white;">
+                <Label text="Manage Tags" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Separator/>
+                <Label text="Current tags:" style="-fx-font-weight: bold;"/>
+                <FlowPane fx:id="currentTagsPane" hgap="8" vgap="8" style="-fx-padding: 5 0;"/>
+                <Label text="Add new tag:"/>
+                <TextField fx:id="newTagField" promptText="Enter tag name"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Add Tag" onAction="#handleAddTag" styleClass="button-primary"/>
+                    <Button text="Done" onAction="#handleCloseTagDialog" styleClass="button-secondary"/>
+                </HBox>
+            </VBox>
+
+            <!-- NOTES DIALOG -->
+            <VBox fx:id="notesDialog" styleClass="card" spacing="15" visible="false" managed="false"
+                  style="-fx-max-width: 500; -fx-background-color: white;">
+                <Label text="Edit Notes" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Separator/>
+                <TextArea fx:id="notesTextArea" promptText="Add your private notes about this entry..." 
+                         wrapText="true" prefRowCount="5"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Save Notes" onAction="#handleSaveNotes" styleClass="button-primary"/>
+                    <Button text="Cancel" onAction="#handleCloseNotesDialog" styleClass="button-secondary"/>
+                </HBox>
+            </VBox>
+
+            <!-- EXPORT DIALOG -->
+            <VBox fx:id="exportDialog" styleClass="card" spacing="15" visible="false" managed="false"
+                  style="-fx-max-width: 400; -fx-background-color: white;">
+                <Label text="Export History" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Separator/>
+                <Label text="Choose export format:"/>
+                <ComboBox fx:id="exportFormatCombo" value="CSV" prefWidth="200">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="CSV"/>
+                            <String fx:value="JSON"/>
+                            <String fx:value="PDF (Summary)"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <CheckBox fx:id="exportWithNotesCheck" text="Include private notes"/>
+                <CheckBox fx:id="exportCurrentFilterCheck" text="Only current filtered view" selected="true"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Export" onAction="#handleConfirmExport" styleClass="button-primary"/>
+                    <Button text="Cancel" onAction="#handleCloseExportDialog" styleClass="button-secondary"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

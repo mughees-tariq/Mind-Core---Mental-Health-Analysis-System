@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.mentalhealth.controller.AboutController"
+            prefWidth="1200" prefHeight="800">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox prefWidth="250" spacing="5"
+              style="-fx-background-color: #1565C0;">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <Label text="Mental Health"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region prefHeight="30"/>
+
+            <Button text="&#x1F4CA;  Dashboard"
+                    onAction="#handleDashboard"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F4DD;  New Analysis"
+                    onAction="#handleNewAnalysis"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F4DC;  History"
+                    onAction="#handleHistory"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F60A;  Mood Tracker"
+                    onAction="#handleMoodTracker"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F4CB;  Recommendations"
+                    onAction="#handleRecommendations"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F464;  Profile"
+                    onAction="#handleProfile"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x2139;  About Us"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="&#x1F6AA;  Logout"
+                    onAction="#handleLogout"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-background: #f8fafc; -fx-border-color: transparent;">
+            <VBox spacing="30" style="-fx-padding: 40 50;">
+
+                <!-- 
+                     HERO SECTION
+                      -->
+                <VBox spacing="12" alignment="CENTER"
+                      style="-fx-background-color: linear-gradient(to right, #4f46e5, #7c3aed);
+                             -fx-background-radius: 20; -fx-padding: 40 30;">
+                    <Label text="&#x1F9E0;"
+                           style="-fx-font-size: 48px;"/>
+                    <Label text="Mental Health Analysis"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <Label text="AI-Powered Insights for a Healthier Mind"
+                           style="-fx-font-size: 16px; -fx-text-fill: rgba(255,255,255,0.85);"/>
+                    <Label text="Version 1.0  &#x2022;  FAST NUCES  &#x2022;  Software Design &amp; Analysis"
+                           style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.6); -fx-padding: 8 0 0 0;"/>
+                </VBox>
+
+                <!-- 
+                     THE IDEA
+                      -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="&#x1F4A1;  The Idea"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                    <Separator/>
+                    <Label wrapText="true"
+                           style="-fx-font-size: 14px; -fx-text-fill: #475569; -fx-line-spacing: 4;"
+                           text="Mental health is one of the most pressing challenges of our generation, yet it remains deeply underserved by technology. We asked ourselves a simple question: What if your daily journaling could do more than just sit in a diary? What if it could actually tell you how you're feeling — before you even realize it yourself? That question became this application. By combining natural language processing with a trained machine learning model, we built a system that reads your words, understands the emotional patterns behind them, and provides real-time mental health predictions — from Normal to Stress, Anxiety, Depression, and beyond."/>
+                </VBox>
+
+                <!-- 
+                     OUR MOTIVE
+                      -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="&#x1F3AF;  Our Motive"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                    <Separator/>
+                    <Label wrapText="true"
+                           style="-fx-font-size: 14px; -fx-text-fill: #475569; -fx-line-spacing: 4;"
+                           text="We believe that mental health awareness should be accessible, stigma-free, and proactive — not reactive. Our motive is threefold:"/>
+                    <VBox spacing="8" style="-fx-padding: 5 0 0 15;">
+                        <Label wrapText="true"
+                               style="-fx-font-size: 13px; -fx-text-fill: #334155;"
+                               text="&#x2022;  Empower individuals to understand their emotional patterns through data, not guesswork."/>
+                        <Label wrapText="true"
+                               style="-fx-font-size: 13px; -fx-text-fill: #334155;"
+                               text="&#x2022;  Bridge the gap between daily self-expression and clinical-grade mental health insight."/>
+                        <Label wrapText="true"
+                               style="-fx-font-size: 13px; -fx-text-fill: #334155;"
+                               text="&#x2022;  Provide a safe, private, offline-first tool that respects user data and never compromises on privacy."/>
+                    </VBox>
+                    <Label wrapText="true"
+                           style="-fx-font-size: 14px; -fx-text-fill: #475569; -fx-line-spacing: 4; -fx-padding: 5 0 0 0;"
+                           text="This project is not a replacement for professional help — it is a companion that helps you recognize when professional help might be needed, and equips you with the self-awareness to take that step."/>
+                </VBox>
+
+                <!-- 
+                     KEY FEATURES
+                      -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="&#x2699;  Key Features"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                    <Separator/>
+                    <GridPane hgap="15" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="&#x1F916;" style="-fx-font-size: 22px;"/>
+                            <VBox spacing="2">
+                                <Label text="AI-Powered Predictions" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                                <Label text="NLP model trained on mental health data" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="&#x1F4CA;" style="-fx-font-size: 22px;"/>
+                            <VBox spacing="2">
+                                <Label text="Personal Analytics" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                                <Label text="Trends, heatmaps, and weekly reports" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="&#x1F9D8;" style="-fx-font-size: 22px;"/>
+                            <VBox spacing="2">
+                                <Label text="Wellness Tools" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                                <Label text="Breathing exercises and self-care tracking" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="&#x1F512;" style="-fx-font-size: 22px;"/>
+                            <VBox spacing="2">
+                                <Label text="Privacy-First Design" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                                <Label text="All data stored locally on your machine" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label text="&#x1F4C5;" style="-fx-font-size: 22px;"/>
+                            <VBox spacing="2">
+                                <Label text="Mood History" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                                <Label text="Full analysis history with search and filters" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <Label text="&#x1F6A8;" style="-fx-font-size: 22px;"/>
+                            <VBox spacing="2">
+                                <Label text="Crisis Resources" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                                <Label text="Dynamic helplines based on risk assessment" style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                            </VBox>
+                        </HBox>
+                    </GridPane>
+                </VBox>
+
+                <!-- 
+                     TECH STACK
+                      -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="&#x1F6E0;  Technology Stack"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                    <Separator/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Label text="JavaFX 21" style="-fx-background-color: #e0e7ff; -fx-text-fill: #4338ca; -fx-background-radius: 20; -fx-padding: 6 14; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                        <Label text="SQLite" style="-fx-background-color: #dbeafe; -fx-text-fill: #1d4ed8; -fx-background-radius: 20; -fx-padding: 6 14; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                        <Label text="Python Flask" style="-fx-background-color: #fef3c7; -fx-text-fill: #92400e; -fx-background-radius: 20; -fx-padding: 6 14; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                        <Label text="Hugging Face NLP" style="-fx-background-color: #fce7f3; -fx-text-fill: #9d174d; -fx-background-radius: 20; -fx-padding: 6 14; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                        <Label text="Maven" style="-fx-background-color: #f0fdf4; -fx-text-fill: #166534; -fx-background-radius: 20; -fx-padding: 6 14; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                        <Label text="Gson" style="-fx-background-color: #fef2f2; -fx-text-fill: #991b1b; -fx-background-radius: 20; -fx-padding: 6 14; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- 
+                     MEET THE TEAM
+                      -->
+                <VBox spacing="15">
+                    <Label text="&#x1F465;  Meet The Team"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+
+                    <HBox spacing="20" alignment="CENTER">
+
+                        <!-- Team Member 1: Mustafa -->
+                        <VBox styleClass="card" spacing="10" alignment="CENTER"
+                              HBox.hgrow="ALWAYS" maxWidth="300"
+                              style="-fx-border-color: #4f46e5; -fx-border-width: 0 0 3 0; -fx-border-radius: 0 0 15 15;">
+                            <StackPane alignment="CENTER" style="-fx-padding: 5 0 0 0;">
+                                <Circle radius="35" style="-fx-fill: linear-gradient(to bottom right, #4f46e5, #7c3aed); -fx-stroke: white; -fx-stroke-width: 2.5;"/>
+                                <Label text="MM" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                            </StackPane>
+                            <Label text="Muhammad Mustafa"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                            <Label text="24i-0525"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
+                            <Label text="Developer &amp; Team Manager"
+                                   style="-fx-background-color: #4f46e5; -fx-text-fill: white;
+                                          -fx-background-radius: 20; -fx-padding: 4 14; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label wrapText="true" alignment="CENTER"
+                                   style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-text-alignment: center;"
+                                   text="Led the team, architected the full-stack application, and drove end-to-end development from UI design to backend integration."/>
+                        </VBox>
+
+                        <!-- Team Member 2: Mughees -->
+                        <VBox styleClass="card" spacing="10" alignment="CENTER"
+                              HBox.hgrow="ALWAYS" maxWidth="300"
+                              style="-fx-border-color: #0ea5e9; -fx-border-width: 0 0 3 0; -fx-border-radius: 0 0 15 15;">
+                            <StackPane alignment="CENTER" style="-fx-padding: 5 0 0 0;">
+                                <Circle radius="35" style="-fx-fill: linear-gradient(to bottom right, #0ea5e9, #0284c7); -fx-stroke: white; -fx-stroke-width: 2.5;"/>
+                                <Label text="MT" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                            </StackPane>
+                            <Label text="Muhammad Mughees Tariq"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                            <Label text="24i-0806"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
+                            <Label text="Developer"
+                                   style="-fx-background-color: #0ea5e9; -fx-text-fill: white;
+                                          -fx-background-radius: 20; -fx-padding: 4 14; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label wrapText="true" alignment="CENTER"
+                                   style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-text-alignment: center;"
+                                   text="Core developer responsible for implementing key features, database design, and ensuring robust functionality across the application."/>
+                        </VBox>
+
+                        <!-- Team Member 3: Anas -->
+                        <VBox styleClass="card" spacing="10" alignment="CENTER"
+                              HBox.hgrow="ALWAYS" maxWidth="300"
+                              style="-fx-border-color: #10b981; -fx-border-width: 0 0 3 0; -fx-border-radius: 0 0 15 15;">
+                            <StackPane alignment="CENTER" style="-fx-padding: 5 0 0 0;">
+                                <Circle radius="35" style="-fx-fill: linear-gradient(to bottom right, #10b981, #059669); -fx-stroke: white; -fx-stroke-width: 2.5;"/>
+                                <Label text="AM" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                            </StackPane>
+                            <Label text="Anas Mumtaz"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                            <Label text="24i-0653"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
+                            <Label text="Analyst"
+                                   style="-fx-background-color: #10b981; -fx-text-fill: white;
+                                          -fx-background-radius: 20; -fx-padding: 4 14; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label wrapText="true" alignment="CENTER"
+                                   style="-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-text-alignment: center;"
+                                   text="Conducted requirements analysis, defined system specifications, and validated the ML model's accuracy against mental health datasets."/>
+                        </VBox>
+
+                    </HBox>
+                </VBox>
+
+                <!-- 
+                     FOOTER
+                      -->
+                <VBox spacing="6" alignment="CENTER" style="-fx-padding: 10 0 20 0;">
+                    <Separator/>
+                    <Label text="Built with care at FAST NUCES &#x2022; Spring 2026"
+                           style="-fx-font-size: 12px; -fx-text-fill: #94a3b8; -fx-padding: 10 0 0 0;"/>
+                    <Label text="Software Design &amp; Analysis Project"
+                           style="-fx-font-size: 11px; -fx-text-fill: #cbd5e1;"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.mentalhealth.controller.RecommendationController"
+            prefWidth="1200" prefHeight="800"
+            stylesheets="@../css/styles.css">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox prefWidth="250" spacing="5" style="-fx-background-color: #1565C0;">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <Label text="Mental Health"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region prefHeight="30"/>
+
+            <Button text="📊  Dashboard"
+                    onAction="#handleDashboard"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📝  New Analysis"
+                    onAction="#handleNewAnalysis"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📜  History"
+                    onAction="#handleHistory"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="😊  Mood Tracker"
+                    onAction="#handleMoodTracker"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📋  Recommendations"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="👤  Profile"
+                    onAction="#handleProfile"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="ℹ️  About Us"
+                    onAction="#handleAbout"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="🚪  Logout"
+                    onAction="#handleLogout"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #f5f5f5;">
+            <VBox spacing="20" style="-fx-background-color: #f5f5f5;">
+                <padding>
+                    <Insets top="30" right="40" bottom="30" left="40"/>
+                </padding>
+
+                <!-- Header -->
+                <VBox spacing="8">
+                    <Label text="📋 Personalized Recommendations"
+                           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                    <Label text="Tailored activities and techniques based on your mental health analysis"
+                           style="-fx-font-size: 14px; -fx-text-fill: #757575;"/>
+                </VBox>
+
+                <!-- Status pills and progress -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label fx:id="moodPill" text="Mood: Loading..."
+                           style="-fx-background-color: #e0e7ff; -fx-text-fill: #4338ca; -fx-background-radius: 20; -fx-padding: 6 16; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Label fx:id="riskPill" text="Risk: Loading..."
+                           style="-fx-background-color: #f1f5f9; -fx-text-fill: #64748b; -fx-background-radius: 20; -fx-padding: 6 16; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="progressLabel" text="0 / 0 completed"
+                           style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <!-- Progress bar -->
+                <ProgressBar fx:id="progressBar" progress="0" prefWidth="Infinity" prefHeight="8"
+                             styleClass="progress-bar, rec-progress-bar"/>
+
+                <!-- Dynamic sections container -->
+                <VBox fx:id="sectionsContainer" spacing="20"/>
+
+                <!-- Weekly Progress Tracker -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="📈 Weekly Progress Tracker"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                    <Label text="Your activity completion over the last 7 days"
+                           style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;"/>
+                    <VBox fx:id="weeklyStatsContainer" spacing="8">
+                        <Label text="Loading weekly data..." style="-fx-text-fill: #94a3b8;"/>
+                    </VBox>
+                </VBox>
+
+                <Region prefHeight="20"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

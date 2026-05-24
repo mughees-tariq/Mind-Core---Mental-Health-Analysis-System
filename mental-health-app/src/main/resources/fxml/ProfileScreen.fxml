@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.mentalhealth.controller.ProfileController"
+            stylesheets="@../css/styles.css">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="250" spacing="5" style="-fx-background-color: #1565C0;">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <Label text="Mental Health"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region prefHeight="30"/>
+
+            <Button text="&#x1F4CA;  Dashboard"
+                    onAction="#handleDashboard"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F4DD;  New Analysis"
+                    onAction="#handleNewAnalysis"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F4DC;  History"
+                    onAction="#handleHistory"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F60A;  Mood Tracker"
+                    onAction="#handleMoodTracker"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F4CB;  Recommendations"
+                    onAction="#handleRecommendations"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x1F464;  Profile"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="&#x2139;&#xFE0F;  About Us"
+                    onAction="#handleAbout"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="&#x1F6AA;  Logout"
+                    onAction="#handleLogout"
+                    prefWidth="Infinity" prefHeight="45"
+                    style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox styleClass="content-area" spacing="25">
+
+                <!-- 1. HEADER -->
+                <HBox alignment="CENTER_LEFT">
+                    <VBox spacing="5">
+                        <Label text="My Profile" styleClass="label-title"/>
+                        <Label text="Manage your personal information and wellness insights" styleClass="label-subtitle"/>
+                    </VBox>
+                </HBox>
+
+                <!-- 2. PROFILE SUMMARY CARD -->
+                <VBox styleClass="card" spacing="15">
+                    <HBox spacing="25" alignment="CENTER_LEFT">
+                        <StackPane>
+                            <Circle radius="45" styleClass="profile-avatar"/>
+                            <Label fx:id="avatarInitialsLabel" text="MM"
+                                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                        </StackPane>
+
+                        <VBox spacing="8">
+                            <Label fx:id="nameLabel" text="User"
+                                   style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                            <Label fx:id="emailLabel" text="email@example.com" styleClass="label-muted"/>
+                            <HBox spacing="10">
+                                <Label fx:id="memberSinceLabel" text="Member Since: --" styleClass="pill"/>
+                                <Label text="Active" styleClass="pill"/>
+                            </HBox>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Button text="Edit Profile" styleClass="button-primary" onAction="#handleEditProfile"/>
+                    </HBox>
+
+                    <!-- Profile Completeness -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label fx:id="profileCompletenessLabel" text="Profile 0% complete"
+                               style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
+                        <ProgressBar fx:id="profileCompletenessBar" progress="0.0"
+                                     prefWidth="300" prefHeight="8"
+                                     styleClass="profile-completeness-bar"/>
+                    </HBox>
+                </VBox>
+
+                <!-- 3. INFO + STATS ROW -->
+                <GridPane hgap="25" vgap="25">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <VBox styleClass="card" spacing="15" GridPane.columnIndex="0">
+                        <Label text="Personal Information" styleClass="label-section"/>
+                        <Separator/>
+                        <VBox spacing="10">
+                            <Label fx:id="ageLabel" text="Age: --"/>
+                            <Label fx:id="genderLabel" text="Gender: --"/>
+                            <Label fx:id="locationLabel" text="Location: --"/>
+                        </VBox>
+                    </VBox>
+
+                    <VBox styleClass="card" spacing="15" GridPane.columnIndex="1">
+                        <Label text="Wellness Statistics" styleClass="label-section"/>
+                        <Separator/>
+                        <VBox spacing="12">
+                            <Label fx:id="totalEntriesLabel" text="Total Analyses: 0"/>
+                            <Label fx:id="avgMoodLabel" text="Average Mood Score: --"/>
+                            <Label fx:id="lastSessionLabel" text="Last Session: --"/>
+                            <ProgressBar fx:id="wellnessProgressBar" progress="0.0"/>
+                        </VBox>
+                    </VBox>
+                </GridPane>
+
+                <!-- 4. MOOD HEATMAP CALENDAR -->
+                <VBox styleClass="card" spacing="15">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Mood Activity" styleClass="label-section"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="heatmapRangeLabel" text="Last 4 months"
+                               style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;"/>
+                    </HBox>
+                    <GridPane fx:id="heatmapGrid" hgap="3" vgap="3"/>
+                    <HBox fx:id="heatmapLegend" spacing="5" alignment="CENTER_RIGHT"/>
+                </VBox>
+
+                <!-- 5. PERSONAL ANALYTICS SUMMARY -->
+                <VBox styleClass="card" spacing="15">
+                    <Label text="Analytics Summary (30 days)" styleClass="label-section"/>
+                    <Separator/>
+                    <GridPane hgap="25" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="33"/>
+                            <ColumnConstraints percentWidth="33"/>
+                            <ColumnConstraints percentWidth="33"/>
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0">
+                            <Label text="TOP MOOD" style="-fx-text-fill: #607D8B; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label fx:id="topMood1Label" text="--" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1">
+                            <Label text="AVG CONFIDENCE" style="-fx-text-fill: #607D8B; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label fx:id="avgConfidenceLabel" text="--" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1E88E5;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="2">
+                            <Label text="30-DAY TREND" style="-fx-text-fill: #607D8B; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label fx:id="trendDirection30Label" text="--" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </GridPane>
+                    <HBox fx:id="topMoodPillsContainer" spacing="10"/>
+                </VBox>
+
+                <!-- 6. STREAK AND BADGES -->
+                <HBox styleClass="card" spacing="30" alignment="CENTER_LEFT"
+                      style="-fx-background-color: #eff6ff; -fx-border-color: #bfdbfe; -fx-border-radius: 15px;">
+                    <VBox spacing="6" alignment="CENTER" minWidth="120">
+                        <Label fx:id="streakFireLabel" text="" style="-fx-font-size: 32px;"/>
+                        <Label fx:id="streakCountLabel" text="0 days"
+                               style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                        <Label text="Current Streak" style="-fx-text-fill: #64748b; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <Separator orientation="VERTICAL"/>
+                    <VBox spacing="8">
+                        <Label text="Milestones" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                        <HBox fx:id="badgesContainer" spacing="12"/>
+                    </VBox>
+                </HBox>
+
+                <!-- 7. WEEKLY WELLNESS REPORT CARD -->
+                <VBox styleClass="card" spacing="15">
+                    <Label text="This Week's Report Card" styleClass="label-section"/>
+                    <Separator/>
+                    <GridPane hgap="25" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="25"/>
+                            <ColumnConstraints percentWidth="25"/>
+                            <ColumnConstraints percentWidth="25"/>
+                            <ColumnConstraints percentWidth="25"/>
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0">
+                            <Label text="ANALYSES" style="-fx-text-fill: #607D8B; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label fx:id="weeklyAnalysesLabel" text="0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1E88E5;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1">
+                            <Label text="DOMINANT MOOD" style="-fx-text-fill: #607D8B; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label fx:id="weeklyDominantLabel" text="--" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="2">
+                            <Label text="VS LAST WEEK" style="-fx-text-fill: #607D8B; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label fx:id="weeklyChangeLabel" text="--" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="3">
+                            <Label text="MOOD SHIFT" style="-fx-text-fill: #607D8B; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <Label fx:id="weeklyMoodShiftLabel" text="--" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+
+                <!-- 8. GOALS AND AFFIRMATIONS -->
+                <VBox styleClass="card" spacing="15">
+                    <Label text="Goals &amp; Affirmations" styleClass="label-section"/>
+                    <Separator/>
+
+                    <Label text="My Wellness Goal" style="-fx-font-weight: bold; -fx-text-fill: #475569;"/>
+                    <TextArea fx:id="goalTextArea" promptText="What is your wellness goal?"
+                              prefRowCount="2" wrapText="true"/>
+                    <Button text="Save Goal" onAction="#handleSaveGoal" styleClass="button-primary"
+                            style="-fx-font-size: 13px; -fx-padding: 8 20;"/>
+
+                    <Separator/>
+
+                    <Label text="My Affirmations" style="-fx-font-weight: bold; -fx-text-fill: #475569;"/>
+                    <VBox fx:id="affirmationsContainer" spacing="8"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="newAffirmationField" promptText="Add a positive affirmation..."
+                                   HBox.hgrow="ALWAYS"/>
+                        <Button text="+ Add" onAction="#handleAddAffirmation" styleClass="button-primary"
+                                style="-fx-font-size: 13px; -fx-padding: 8 16;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- 9. EMERGENCY CONTACTS -->
+                <VBox styleClass="card" spacing="15">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Emergency Contacts" styleClass="label-section"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="+ Add Contact" onAction="#handleAddContact" styleClass="button-secondary"
+                                style="-fx-font-size: 12px; -fx-padding: 6 14;"/>
+                    </HBox>
+                    <Separator/>
+                    <VBox fx:id="emergencyContactsContainer" spacing="10"/>
+                </VBox>
+
+                <!-- 10. EXPORT DATA -->
+                <HBox styleClass="card" spacing="20" alignment="CENTER_LEFT"
+                      style="-fx-background-color: #eff6ff; -fx-border-color: #bfdbfe; -fx-border-radius: 15px;">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Export Your Data" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="Download your complete analysis history as a CSV file"
+                               style="-fx-text-fill: #64748b; -fx-font-size: 13px;"/>
+                    </VBox>
+                    <Button text="Export CSV" onAction="#handleExportData" styleClass="button-primary"
+                            style="-fx-font-size: 13px;"/>
+                </HBox>
+
+                <!-- 11. ACCOUNT MANAGEMENT -->
+                <VBox styleClass="card" spacing="15">
+                    <Label text="Account Management" styleClass="label-section"/>
+                    <Separator/>
+                    <HBox spacing="12">
+                        <Button text="Change Password" onAction="#handleShowChangePassword" styleClass="button-secondary"/>
+                        <Button text="Clear History" onAction="#handleClearHistory" styleClass="button-danger"
+                                style="-fx-font-size: 13px;"/>
+                        <Button text="Delete Account" onAction="#handleShowDeleteAccount" styleClass="button-danger"
+                                style="-fx-font-size: 13px;"/>
+                    </HBox>
+                    <Label fx:id="accountStatusLabel" text="" styleClass="label-muted"/>
+                </VBox>
+
+                <!--  HIDDEN DIALOGS  -->
+
+                <!-- Edit Profile Dialog -->
+                <VBox fx:id="editProfileDialog" styleClass="card" spacing="15"
+                      visible="false" managed="false">
+                    <Label text="Edit Profile" styleClass="label-section"/>
+                    <Separator/>
+                    <GridPane hgap="15" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Name" styleClass="form-label"/>
+                            <TextField fx:id="editNameField" promptText="Enter your name"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Age" styleClass="form-label"/>
+                            <TextField fx:id="editAgeField" promptText="Enter your age"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="Gender" styleClass="form-label"/>
+                            <ComboBox fx:id="editGenderCombo" prefWidth="Infinity" promptText="Select gender"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Location" styleClass="form-label"/>
+                            <TextField fx:id="editLocationField" promptText="Enter your location"/>
+                        </VBox>
+                    </GridPane>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Save Changes" onAction="#handleSaveProfile" styleClass="button-primary"/>
+                        <Button text="Cancel" onAction="#handleCancelEdit" styleClass="button-secondary"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Add Contact Dialog -->
+                <VBox fx:id="addContactDialog" styleClass="card" spacing="15"
+                      visible="false" managed="false">
+                    <Label text="Add Emergency Contact" styleClass="label-section"/>
+                    <Separator/>
+                    <TextField fx:id="contactNameField" promptText="Contact name"/>
+                    <TextField fx:id="contactPhoneField" promptText="Phone number"/>
+                    <TextField fx:id="contactRelationshipField" promptText="Relationship (e.g., Parent, Friend)"/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Save Contact" onAction="#handleSaveContact" styleClass="button-primary"/>
+                        <Button text="Cancel" onAction="#handleCancelContact" styleClass="button-secondary"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Change Password Dialog -->
+                <VBox fx:id="changePasswordDialog" styleClass="card" spacing="15"
+                      visible="false" managed="false">
+                    <Label text="Change Password" styleClass="label-section"/>
+                    <Separator/>
+                    <PasswordField fx:id="currentPasswordField" promptText="Current password"/>
+                    <PasswordField fx:id="newPasswordField" promptText="New password (8+ chars, letters &amp; numbers)"/>
+                    <PasswordField fx:id="confirmNewPasswordField" promptText="Confirm new password"/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Update Password" onAction="#handleSavePassword" styleClass="button-primary"/>
+                        <Button text="Cancel" onAction="#handleCancelPassword" styleClass="button-secondary"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Delete Account Dialog -->
+                <VBox fx:id="deleteAccountDialog" styleClass="card" spacing="15"
+                      visible="false" managed="false"
+                      style="-fx-background-color: #fef2f2; -fx-border-color: #fecaca; -fx-border-radius: 15px;">
+                    <Label text="Delete Account" styleClass="label-section" style="-fx-text-fill: #dc2626;"/>
+                    <Separator/>
+                    <Label text="This action is permanent and cannot be undone. All your data will be deleted."
+                           wrapText="true" style="-fx-text-fill: #ef4444;"/>
+                    <Label text="Type DELETE to confirm:" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="deleteConfirmField" promptText="Type DELETE"/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Delete My Account" onAction="#handleDeleteAccount" styleClass="button-danger"/>
+                        <Button text="Cancel" onAction="#handleCancelDelete" styleClass="button-secondary"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

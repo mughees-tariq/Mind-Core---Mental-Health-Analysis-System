@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="root"
+            fx:controller="com.mentalhealth.controller.AnalysisController"
+            prefWidth="1200" prefHeight="800"
+            stylesheets="@../css/styles.css">
+
+    <!-- Sidebar -->
+        <left>
+        <VBox prefWidth="250" spacing="5" style="-fx-background-color: #1565C0;">
+            <padding>
+            <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <Label text="Mental Health"
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region prefHeight="30"/>
+
+            <Button text="📊  Dashboard"
+                onAction="#handleDashboard"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📝  New Analysis"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📜  History"
+                onAction="#handleHistory"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="😊  Mood Tracker"
+                onAction="#handleMoodTracker"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="📋  Recommendations"
+                onAction="#handleRecommendations"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="👤  Profile"
+                onAction="#handleProfile"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Button text="ℹ️  About Us"
+                onAction="#handleAbout"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="🚪  Logout"
+                onAction="#handleLogout"
+                prefWidth="Infinity" prefHeight="45"
+                style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-cursor: hand;"/>
+        </VBox>
+        </left>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #f5f5f5;">
+            <VBox spacing="24" style="-fx-background-color: #f5f5f5;">
+                <padding>
+                    <Insets top="30" right="40" bottom="30" left="40"/>
+                </padding>
+
+                <!-- Header -->
+                <VBox spacing="8">
+                    <Label text="🔍 Mental Health Analysis"
+                           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                    <Label text="Enter your thoughts or feelings below for AI-powered analysis"
+                           style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
+                </VBox>
+
+                <!-- API Status Pill -->
+                <HBox alignment="CENTER_LEFT">
+                    <HBox fx:id="apiStatusBox" spacing="8" alignment="CENTER_LEFT"
+                          style="-fx-background-color: #fef3c7; -fx-background-radius: 20; -fx-padding: 6 16;">
+                        <Label fx:id="apiStatusDot" text="●" style="-fx-text-fill: #f59e0b; -fx-font-size: 10px;"/>
+                        <Label fx:id="apiStatusLabel" text="Checking connection..."
+                               style="-fx-text-fill: #92400e; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Input Card -->
+                <VBox spacing="16" styleClass="card">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="💭" style="-fx-font-size: 20px;"/>
+                        <Label text="How are you feeling today?"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                    </HBox>
+
+                    <Label text="Describe your thoughts, emotions, or current state of mind in detail for a more accurate analysis."
+                           style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;" wrapText="true"/>
+
+                    <TextArea fx:id="inputTextArea"
+                              promptText="I've been feeling overwhelmed lately with work and personal life. Some days are better than others, but I often find myself..."
+                              prefHeight="160"
+                              wrapText="true"
+                              style="-fx-font-size: 14px;"/>
+
+                    <!-- Character count + buttons -->
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <Button fx:id="analyzeButton"
+                                text="🔍 Analyze My Feelings"
+                                onAction="#handleAnalyze"
+                                prefHeight="44"
+                                style="-fx-background-color: linear-gradient(to right, #4f46e5, #7c3aed); -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 10; -fx-padding: 0 28;"/>
+
+                        <Button text="Clear"
+                                onAction="#handleClear"
+                                prefHeight="44"
+                                style="-fx-background-color: #f1f5f9; -fx-text-fill: #64748b; -fx-font-size: 13px; -fx-cursor: hand; -fx-background-radius: 10; -fx-padding: 0 20;"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Label fx:id="charCountLabel" text="0 characters"
+                               style="-fx-font-size: 11px; -fx-text-fill: #94a3b8;"/>
+
+                        <ProgressIndicator fx:id="loadingIndicator" visible="false" prefWidth="28" prefHeight="28"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Results Area (hidden until analysis completes) -->
+                <VBox fx:id="resultsBox" spacing="20" visible="false">
+
+                    <!-- Main Result Hero Card -->
+                    <VBox fx:id="heroCard" spacing="14" styleClass="card"
+                          style="-fx-border-width: 0 0 0 5; -fx-border-radius: 15;">
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label fx:id="resultEmoji" text="🧠" style="-fx-font-size: 26px;"/>
+                            <VBox spacing="2">
+                                <Label text="Analysis Result"
+                                       style="-fx-font-size: 11px; -fx-text-fill: #94a3b8; -fx-font-weight: bold;"/>
+                                <Label fx:id="predictionLabel" text="-"
+                                       style="-fx-font-size: 26px; -fx-font-weight: bold;"/>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <VBox alignment="CENTER" spacing="2">
+                                <Label fx:id="severityPill" text="-"
+                                       style="-fx-background-radius: 20; -fx-padding: 5 16; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Confidence gauge -->
+                        <VBox spacing="6">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Confidence" style="-fx-font-size: 12px; -fx-text-fill: #64748b; -fx-font-weight: bold;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="confidenceLabel" text="-"
+                                       style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #4f46e5;"/>
+                            </HBox>
+                            <ProgressBar fx:id="confidenceBar" progress="0" prefWidth="Infinity" prefHeight="10"
+                                         styleClass="progress-bar"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- All Predictions Breakdown -->
+                    <VBox spacing="14" styleClass="card">
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="📊" style="-fx-font-size: 18px;"/>
+                            <Label text="Detailed Breakdown"
+                                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                        </HBox>
+                        <Label text="Probability distribution across all mental health categories"
+                               style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;"/>
+
+                        <VBox fx:id="predictionsContainer" spacing="12"/>
+                    </VBox>
+
+                    <!-- Quick Insight Card -->
+                    <HBox spacing="16">
+                        <VBox spacing="8" styleClass="card" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #eff6ff; -fx-border-color: #bfdbfe; -fx-border-radius: 15; -fx-border-width: 1;">
+                            <Label text="💡 What This Means"
+                                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e40af;"/>
+                            <Label fx:id="insightLabel"
+                                   text="Your analysis results will appear here with personalized insights."
+                                   wrapText="true"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #3b82f6;"/>
+                        </VBox>
+                        <VBox spacing="8" styleClass="card" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #f0fdf4; -fx-border-color: #bbf7d0; -fx-border-radius: 15; -fx-border-width: 1;">
+                            <Label text="🌟 Suggested Next Step"
+                                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #166534;"/>
+                            <Label fx:id="nextStepLabel"
+                                   text="Complete an analysis to receive a personalized recommendation."
+                                   wrapText="true"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #16a34a;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Error Message -->
+                <Label fx:id="errorLabel" text=""
+                       style="-fx-text-fill: #dc2626; -fx-font-size: 13px; -fx-background-color: #fef2f2; -fx-background-radius: 10; -fx-padding: 12 16; -fx-font-weight: bold;"
+                       visible="false" wrapText="true"/>
+
+                <Region prefHeight="20"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
