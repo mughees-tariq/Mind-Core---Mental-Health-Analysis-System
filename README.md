@@ -16,7 +16,44 @@ Try the mental health classifier instantly in your browser — no installation n
 
 ## 📸 Screenshots
 
-*(Add screenshots here)*
+![Login Screen](Images/loginScreen.png)
+*Secure login with bcrypt password hashing*
+
+![Register Screen](Images/registerScreen.png)
+*Account registration with input validation*
+
+![Register Screen](Images/registerScreen2.png)
+*Account registration with optional details*
+
+![Dashboard](Images/dashboardScreen.png)
+*Streak tracker, self-care checklist, and notifications*
+
+![Analysis Screen](Images/analysisScreen.png)
+*DistilBERT text classification with top-3 confidence breakdown*
+
+![Mood Tracker](Images/moodTrackerScreen.png)
+*Mood line chart, trend analysis, and entry history*
+
+![Mood Tracker](Images/moodTrackerScreen2.png)
+*AI report generation*
+
+![History Screen](Images/historyScreen.png)
+*Full prediction history with advanced filtering and bulk export*
+
+![Recommendations](Images/recommendationsScreen.png)
+*Personalised self-care recommendations based on mental state*
+
+![Recommendations](Images/recommendationsScreen2.png)
+*Weekly progress tracker*
+
+![Profile Screen](Images/profileScreen.png)
+*Profile management, personal information, wellness statistics, and mood activity*
+
+![Profile Screen](Images/profileScreen2.png)
+*Analytics summary, weekly report card, and goals & affirmations*
+
+![Profile Screen](Images/profileScreen3.png)
+*Emergency contacts, export data, and account management*
 
 ---
 
